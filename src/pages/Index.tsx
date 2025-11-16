@@ -57,9 +57,61 @@ const workoutPrograms = [
   { name: 'Гибкость', progress: 40, sessions: '8/20' }
 ];
 
+const workoutDetails = [
+  {
+    name: 'Утренняя пробежка',
+    duration: '45 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/216efa55-9aa0-4b3d-bf84-85235877daa4.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Начни день с легкой пробежки. Разминка 5 мин, основная часть 35 мин в комфортном темпе, заминка 5 мин.',
+    steps: ['Разминка суставов', 'Легкий бег трусцой', 'Постепенное увеличение темпа', 'Заминка и растяжка']
+  },
+  {
+    name: 'Силовая тренировка',
+    duration: '60 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/e9cd8ac8-f0bc-4a4e-a015-ca0ad7ac9911.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Комплексная тренировка на все группы мышц. 3 подхода по 12 повторений на каждое упражнение.',
+    steps: ['Приседания со штангой', 'Жим лежа', 'Становая тяга', 'Подтягивания', 'Жим гантелей']
+  },
+  {
+    name: 'Йога и растяжка',
+    duration: '40 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/4a603972-a3d4-45f9-ad5c-54c421ee664d.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Восстанавливающая практика для гибкости и релаксации. Плавные переходы между асанами.',
+    steps: ['Приветствие солнцу', 'Поза воина', 'Собака мордой вниз', 'Поза дерева', 'Шавасана']
+  },
+  {
+    name: 'HIIT кардио',
+    duration: '30 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/216efa55-9aa0-4b3d-bf84-85235877daa4.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Высокоинтенсивная интервальная тренировка. 30 сек работы, 15 сек отдыха, 8 раундов.',
+    steps: ['Берпи', 'Прыжки с выпадами', 'Скалолаз', 'Прыжки на скакалке', 'Планка с касаниями']
+  },
+  {
+    name: 'Плавание',
+    duration: '45 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/e9cd8ac8-f0bc-4a4e-a015-ca0ad7ac9911.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Кардио-тренировка в бассейне. Чередование стилей плавания для равномерной нагрузки.',
+    steps: ['Разминка вольным стилем', 'Кроль 400м', 'Брасс 200м', 'На спине 200м', 'Заминка']
+  },
+  {
+    name: 'Функциональный тренинг',
+    duration: '50 мин',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/4a603972-a3d4-45f9-ad5c-54c421ee664d.jpg',
+    video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    description: 'Развитие силы, выносливости и координации через комплексные движения.',
+    steps: ['Приседания с прыжком', 'Отжимания', 'Махи гирей', 'Выпады с весом', 'Планка с движением']
+  }
+];
+
 export default function Index() {
   const [activeTab, setActiveTab] = useState('feed');
   const [likedPosts, setLikedPosts] = useState<number[]>([]);
+  const [selectedWorkout, setSelectedWorkout] = useState<number | null>(null);
 
   const toggleLike = (postId: number) => {
     setLikedPosts(prev => 
@@ -302,27 +354,120 @@ export default function Index() {
           </TabsContent>
 
           <TabsContent value="workouts" className="animate-fade-in">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              {['Утренняя пробежка', 'Силовая тренировка', 'Йога и растяжка', 'HIIT кардио', 'Плавание', 'Функциональный тренинг'].map((workout, index) => (
-                <Card key={index} className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className={`p-2 sm:p-3 bg-gradient-to-br ${
-                      index % 3 === 0 ? 'from-purple-400 to-purple-600' :
-                      index % 3 === 1 ? 'from-pink-400 to-pink-600' :
-                      'from-orange-400 to-orange-600'
-                    } rounded-xl sm:rounded-2xl group-hover:animate-pulse-glow`}>
-                      <Icon name="Dumbbell" size={20} className="text-white sm:w-6 sm:h-6" />
+            {selectedWorkout === null ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                {workoutDetails.map((workout, index) => (
+                  <Card key={index} className="overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => setSelectedWorkout(index)}>
+                    <div className="relative h-40 sm:h-48 overflow-hidden">
+                      <img 
+                        src={workout.image} 
+                        alt={workout.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <Badge variant="outline" className="absolute top-3 right-3 bg-white/90 text-xs">{workout.duration}</Badge>
                     </div>
-                    <Badge variant="outline" className="text-xs">45 мин</Badge>
+                    <div className="p-4 sm:p-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className={`p-2 bg-gradient-to-br ${
+                          index % 3 === 0 ? 'from-purple-400 to-purple-600' :
+                          index % 3 === 1 ? 'from-pink-400 to-pink-600' :
+                          'from-orange-400 to-orange-600'
+                        } rounded-lg`}>
+                          <Icon name="Dumbbell" size={16} className="text-white" />
+                        </div>
+                        <h3 className="font-bold text-sm sm:text-base">{workout.name}</h3>
+                      </div>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-3 line-clamp-2">{workout.description}</p>
+                      <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
+                        Подробнее
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="animate-fade-in">
+                <Button variant="ghost" className="mb-4" onClick={() => setSelectedWorkout(null)}>
+                  <Icon name="ArrowLeft" size={18} className="mr-2" />
+                  Назад к тренировкам
+                </Button>
+                
+                <Card className="overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-lg">
+                  <div className="relative h-64 sm:h-80 overflow-hidden">
+                    <img 
+                      src={workoutDetails[selectedWorkout].image} 
+                      alt={workoutDetails[selectedWorkout].name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <h2 className="absolute bottom-4 left-4 sm:left-6 text-2xl sm:text-3xl font-bold text-white">
+                      {workoutDetails[selectedWorkout].name}
+                    </h2>
                   </div>
-                  <h3 className="font-bold mb-2 text-sm sm:text-base">{workout}</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Рекомендуется для вашего уровня</p>
-                  <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
-                    Начать
-                  </Button>
+                  
+                  <div className="p-4 sm:p-6 space-y-6">
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon name="Info" size={20} className="text-primary" />
+                        <h3 className="text-lg font-bold">Описание</h3>
+                      </div>
+                      <p className="text-sm sm:text-base text-muted-foreground">{workoutDetails[selectedWorkout].description}</p>
+                    </div>
+                    
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon name="ListChecks" size={20} className="text-primary" />
+                        <h3 className="text-lg font-bold">Программа тренировки</h3>
+                      </div>
+                      <ul className="space-y-2">
+                        {workoutDetails[selectedWorkout].steps.map((step, idx) => (
+                          <li key={idx} className="flex items-start gap-3 text-sm sm:text-base">
+                            <div className="mt-1 p-1 bg-gradient-to-br from-primary to-secondary rounded-full">
+                              <Icon name="Check" size={14} className="text-white" />
+                            </div>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon name="Video" size={20} className="text-primary" />
+                        <h3 className="text-lg font-bold">Видео инструкция</h3>
+                      </div>
+                      <a 
+                        href={workoutDetails[selectedWorkout].video}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <Card className="p-4 bg-gradient-to-r from-primary/10 to-secondary/10 border-2 border-primary/20 hover:border-primary/40 transition-all cursor-pointer">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="p-3 bg-gradient-to-br from-primary to-secondary rounded-full">
+                                <Icon name="Play" size={24} className="text-white" />
+                              </div>
+                              <div>
+                                <p className="font-semibold">Смотреть видео</p>
+                                <p className="text-sm text-muted-foreground">Детальная техника выполнения</p>
+                              </div>
+                            </div>
+                            <Icon name="ExternalLink" size={18} className="text-muted-foreground" />
+                          </div>
+                        </Card>
+                      </a>
+                    </div>
+                    
+                    <Button className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity py-6 text-lg">
+                      <Icon name="Play" size={20} className="mr-2" />
+                      Начать тренировку
+                    </Button>
+                  </div>
                 </Card>
-              ))}
-            </div>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
