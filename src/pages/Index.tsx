@@ -85,7 +85,7 @@ const workoutDetails = [
   {
     name: 'HIIT кардио',
     duration: '30 мин',
-    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/216efa55-9aa0-4b3d-bf84-85235877daa4.jpg',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/b5bb5472-2ba1-4da0-a837-4df78d981ca6.jpg',
     video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Высокоинтенсивная интервальная тренировка. 30 сек работы, 15 сек отдыха, 8 раундов.',
     steps: ['Берпи', 'Прыжки с выпадами', 'Скалолаз', 'Прыжки на скакалке', 'Планка с касаниями']
@@ -93,7 +93,7 @@ const workoutDetails = [
   {
     name: 'Плавание',
     duration: '45 мин',
-    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/e9cd8ac8-f0bc-4a4e-a015-ca0ad7ac9911.jpg',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/ac3edb24-9bd0-4ff1-8c2e-3297995a5e8b.jpg',
     video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Кардио-тренировка в бассейне. Чередование стилей плавания для равномерной нагрузки.',
     steps: ['Разминка вольным стилем', 'Кроль 400м', 'Брасс 200м', 'На спине 200м', 'Заминка']
@@ -101,7 +101,7 @@ const workoutDetails = [
   {
     name: 'Функциональный тренинг',
     duration: '50 мин',
-    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/4a603972-a3d4-45f9-ad5c-54c421ee664d.jpg',
+    image: 'https://cdn.poehali.dev/projects/ed78dddc-0db3-4810-938d-01c433851763/files/82e8616b-df29-454d-8665-1976b3780953.jpg',
     video: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'Развитие силы, выносливости и координации через комплексные движения.',
     steps: ['Приседания с прыжком', 'Отжимания', 'Махи гирей', 'Выпады с весом', 'Планка с движением']
